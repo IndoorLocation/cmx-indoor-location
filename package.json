@@ -23,15 +23,13 @@
   "dependencies": {
     "@mapbox/sphericalmercator": "1.0.5",
     "async": "2.5.0",
-    "axios": "0.17.0",
+    "azure-event-hubs": "0.0.8",
     "body-parser": "1.18.2",
     "commander": "2.11.0",
     "express": "4.16.2",
-    "ioredis": "3.1.4",
+    "ioredis": "^3.1.4",
     "lodash": "4.17.4",
     "mongodb": "2.2.33",
-    "request": "2.83.0",
-    "socket.io": "2.0.3",
-    "utf8": "2.1.2"
+    "socket.io": "2.0.3"
   }
 }
