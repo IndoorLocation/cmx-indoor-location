@@ -1,0 +1,37 @@
+{
+    "notifications" : [
+        {
+            "notificationType" : "movement",
+            "subscriptionName" : "MapwizeTest",
+            "eventId" : 177865180,
+            "locationMapHierarchy" : "DevNetCampus>DevNetBuilding>DevNetZone",
+            "locationCoordinate" : {
+                "x" : 173.26196,
+                "y" : 35.674004,
+                "z" : 0,
+                "unit" : "FEET"
+            },
+            "geoCoordinate" : {
+                "latitude" : 36.1257628176046,
+                "longitude" : -97.0663809002368,
+                "unit" : "DEGREES"
+            },
+            "confidenceFactor" : 40,
+            "apMacAddress" : "00:2b:01:00:03:00",
+            "associated" : true,
+            "username" : "",
+            "ipAddress" : [
+                "10.10.20.169"
+            ],
+            "ssid" : "test",
+            "band" : "IEEE_802_11_B",
+            "floorId" : 723413320329068700,
+            "floorRefId" : null,
+            "entity" : "WIRELESS_CLIENTS",
+            "deviceId" : "00:00:2a:01:00:0a",
+            "lastSeen" : "2017-10-18T13:12:19.838+00:00",
+            "moveDistanceInFt" : 56.645954,
+            "timestamp" : 1508332339838
+        }
+    ]
+}

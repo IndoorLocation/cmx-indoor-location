@@ -1,0 +1,30 @@
+{
+  "name": "cmx-socket-indoor-location-emitter",
+  "version": "1.0.0",
+  "description": "Node.js server to provide indoorLocation from Cisco CMX",
+  "scripts": {
+    "start-listener": "node cmx-listener/app.js",
+    "start-emitter": "node cmx-emitter/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IndoorLocation/cmx-socket-indoor-location-emitter.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IndoorLocation/cmx-socket-indoor-location-emitter/issues"
+  },
+  "homepage": "https://github.com/IndoorLocation/cmx-socket-indoor-location-emitter#readme",
+  "dependencies": {
+    "@mapbox/sphericalmercator": "1.0.5",
+    "async": "2.5.0",
+    "azure-event-hubs": "0.0.8",
+    "body-parser": "1.18.2",
+    "express": "4.16.2",
+    "ioredis": "^3.1.4",
+    "lodash": "4.17.4",
+    "mongodb": "2.2.33",
+    "socket.io": "2.0.3"
+  }
+}
