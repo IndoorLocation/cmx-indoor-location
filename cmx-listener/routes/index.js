@@ -26,8 +26,9 @@ exports.processCMXNotifications = function (req, res) {
     if (req.query.k === config.key) {
         // We use the setImmediate method for sending directly a 200 HTTP code to the CMX server
         // (no need to wait the end of the processing)
-        async.setImmediate(function (data) {
-            _.forEach(data.notifications, function (notification) {
+        //async.setImmediate(function (data) {
+            //_.forEach(data.notifications, function (notification) {
+            _.forEach(req.body.notifications, function (notification) {
                 var indoorLocation = mapwize.getIndoorLocation(notification);
                 if (indoorLocation) {
                     _.forEach(notification.ipAddress, function (ip) {
@@ -38,7 +39,7 @@ exports.processCMXNotifications = function (req, res) {
                     });
                 }
             });
-        }, req.body);
+        //}, req.body);
 
         res.status(200).end();
     }
