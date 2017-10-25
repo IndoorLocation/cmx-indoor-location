@@ -97,3 +97,7 @@ These objects will be sent to the providers via a socket channel.
     ```
     npm run start-emitter
     ```
+
+## Notes
+
+2 branches have been created to specifically define the start script for easing the application deployments in cloud providers.
