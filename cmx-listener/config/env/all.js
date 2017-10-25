@@ -10,12 +10,19 @@ module.exports = {
         cmxNotificationTTL: process.env.REDIS_CMX_NOTIF_TTL || 3600,
     },
     mongodb: {
+        enabled: process.env.MONGODB_ENABLED || false,
         url: process.env.MONGODB_URL || 'mongodb://localhost:27017/mapwize-cmx-logger',
         collection: process.env.MONGODB_COLLECTION || 'logs',
-        enabled: process.env.MONGODB_ENABLED || false
     },
     azureEventHub: {
+        enabled: process.env.AZURE_EVENT_HUB_ENABLED || false,
+        busNamespace: process.env.AZURE_EVENT_HUB_BUS_NAMESPACE,
+        eventHubPath: process.env.AZURE_EVENT_HUB_PATH,
+        saName: process.env.AZURE_EVENT_HUB_SA_NAME,
+        saKey: process.env.AZURE_EVENT_HUB_SA_KEY
+    }
+    /*azureEventHub: {
         connectionString: process.env.AZURE_EVENT_HUB_CONNECTION_STRING,
         enabled: process.env.AZURE_EVENT_HUB_ENABLED || false
-    }
+    }*/
 };
