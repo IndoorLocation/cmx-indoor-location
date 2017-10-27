@@ -1,7 +1,6 @@
 'use strict';
 
 var config = require('../config/config');
-var rawLayers = require('../raw-layers.json');
 
 var _ = require('lodash');
 var SphericalMercator = require('@mapbox/sphericalmercator');
@@ -14,7 +13,7 @@ var layersById = {};
  */
 function parseLayer(layer) {
     //Get the LatLng corners of the layer
-    var latLngCorners = _.get(layer, 'importJob.corners');
+    var latLngCorners = _.get(layer, 'corners');
     if (latLngCorners) {
         var merc = new SphericalMercator({
             size: 256
@@ -35,7 +34,7 @@ function parseLayer(layer) {
             y: (xyCorners[2].y - xyCorners[0].y)
         };
 
-        var layerId = _.get(layer, 'data.floorId', layer._id);
+        var layerId = _.get(layer, 'floorId', layer._id);
         layersById[layerId] = {
             layer: layer,
             merc: merc,
@@ -50,7 +49,7 @@ function parseLayer(layer) {
  * Public method used to parse and to process all layers written inside a JSON file
  */
 function parseLayers() {
-    _.forEach(rawLayers, parseLayer);
+    _.forEach(config.floorsConfiguration, parseLayer);
 };
 exports.parseLayers = parseLayers;
 
@@ -61,10 +60,9 @@ exports.parseLayers = parseLayers;
 function getIndoorLocation(cmxNotification) {
     var layer = layersById[`${cmxNotification.floorId}`];
     var indoorLocation = {};
-
     if (layer) {
-        var relativeX = _.get(cmxNotification, 'locationCoordinate.x', 0) / _.get(layer, 'layer.data.width', 0);
-        var relativeY = _.get(cmxNotification, 'locationCoordinate.y', 0) / _.get(layer, 'layer.data.height', 0);
+        var relativeX = _.get(cmxNotification, 'locationCoordinate.x', 0) / _.get(layer, 'layer.dimension.width', 1);
+        var relativeY = _.get(cmxNotification, 'locationCoordinate.y', 0) / _.get(layer, 'layer.dimension.length', 1);
 
         // Get the point in absolute coordinates
         var xyPoint = {

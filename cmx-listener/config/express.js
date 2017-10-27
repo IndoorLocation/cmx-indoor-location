@@ -26,7 +26,7 @@ module.exports = function () {
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
         res.status(200).send();
     });
-    
+
     app.use(function(req, res, next) {
         var origin = req.get('origin');
         if (origin) {

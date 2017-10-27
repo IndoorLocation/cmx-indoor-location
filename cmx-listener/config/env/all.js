@@ -3,9 +3,10 @@
 module.exports = {
     port: process.env.PORT || 3004,
     key: process.env.KEY,
+    floorsConfiguration: process.env.FLOORS_CONFIGURATION ? JSON.parse(process.env.FLOORS_CONFIGURATION) : undefined,
     redis: {
-        port: process.env.REDIS_PORT || '6379',
         host: process.env.REDIS_HOST || 'localhost',
+        port: process.env.REDIS_PORT || '6379',
         password: process.env.REDIS_AUTH,
         cmxNotificationTTL: process.env.REDIS_CMX_NOTIF_TTL || 3600,
     },
@@ -16,13 +17,9 @@ module.exports = {
     },
     azureEventHub: {
         enabled: process.env.AZURE_EVENT_HUB_ENABLED || false,
-        busNamespace: process.env.AZURE_EVENT_HUB_BUS_NAMESPACE,
+        serviceBusUri: process.env.AZURE_EVENT_HUB_SERVICE_BUS_URI,
         eventHubPath: process.env.AZURE_EVENT_HUB_PATH,
         saName: process.env.AZURE_EVENT_HUB_SA_NAME,
         saKey: process.env.AZURE_EVENT_HUB_SA_KEY
     }
-    /*azureEventHub: {
-        connectionString: process.env.AZURE_EVENT_HUB_CONNECTION_STRING,
-        enabled: process.env.AZURE_EVENT_HUB_ENABLED || false
-    }*/
 };

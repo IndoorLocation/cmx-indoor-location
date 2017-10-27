@@ -14,7 +14,7 @@ Node.js is required.
     npm i
     ```
 
-## Configurator
+## configurator
 
 A configurator tool is provided to create the config file necessary to run the CMX Listener.
 The config file contains the necessary information to project the coordinates received from CMX onto the Mapwize map.
@@ -51,18 +51,39 @@ redis-cli config set notify-keyspace-events K$
     *   Directly in the `config/all.js` file
     *   Via environment variables
         *   PORT: port used by the server
-        *   KEY: key used to authenticate the POST query
-        *   SESSIONS_REDIS_HOST: redis host
+        *   KEY: key used to authenticate the POST query (__required__)
+        *   FLOORS_CONFIGURATION: serialized CMX JSON configuration (__required__)
+        *   SESSIONS_REDIS_HOST: redis host (__required__)
         *   SESSIONS_REDIS_PORT: redis port
         *   SESSIONS_REDIS_AUTH: redis password (if set)
         *   REDIS_CMX_NOTIF_TTL: redis key TTL
         *   MONGODB_ENABLED: enable notifications logging into MongoDB
         *   MONGODB_URL: MongoDB URL
         *   MONGODB_COLLECTION: MongoDB collection to use
+        *   AZURE_EVENT_HUB_ENABLED: enable notifications logging into an Azure EventHub
+        *   AZURE_EVENT_HUB_SERVICE_BUS_URI: AZ EventHub URI (e.g. `myservice.servicebus.windows.net`)
+        *   AZURE_EVENT_HUB_PATH: AZ EventHub path (e.g. `myeventhub`)
+        *   AZURE_EVENT_HUB_SA_NAME: AZ EventHub SharedAccessKeyName
+        *   AZURE_EVENT_HUB_SA_KEY: AZ EventHub SharedAccessKey
 *   Start the server
     ```
     npm run start-listener
     ```
+
+#### Notes
+
+To correctly serialize the CMX configuration, one can execute the command described below:
+```
+export FLOORS_CONFIGURATION=$(node -e 'var json = require("FILEPATH"); console.log(JSON.stringify(json));')
+```
+
+If you want to put this variable into your clipboard instead, please execute the command below:
+```
+node -e 'var json = require("FILEPATH"); console.log(JSON.stringify(json));' | pbcopy
+```
+
+An example of a valid JSON CMX configuration can be found at `cmx-listener/test/floors-configuration.json`.
+
 
 ### CMX Notification configuration
 
@@ -90,14 +111,10 @@ These objects will be sent to the providers via a socket channel.
     *   Directly in the `config/all.js` file
     *   Via environment variables
         *   PORT: port used by the server
-        *   SESSIONS_REDIS_HOST: redis host
+        *   SESSIONS_REDIS_HOST: redis host (__required__)
         *   SESSIONS_REDIS_PORT: redis port
         *   SESSIONS_REDIS_AUTH: redis password (if set)
 *   Start the server
     ```
     npm run start-emitter
     ```
-
-## Notes
-
-2 branches have been created to specifically define the start script for easing the application deployments in cloud providers.
