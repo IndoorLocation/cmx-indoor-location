@@ -19,6 +19,11 @@ var nConfiguredFloors = 0;
 var nNotConfiguredFloors = 0;
 var nAccessPoints = 0;
 
+if (!program.cmxConfig || !program.mapwizeApiKey || !program.mapwizeVenueId || !program.output) {
+    console.log('The options --cmxConfig, --mapwizeApiKey, --mapwizeVenueId and --output are required.');
+    return;
+}
+
 //Get Mapwize layers
 var layersRequestOptions = {
     url: 'https://www.mapwize.io/api/v1/layers',
@@ -35,9 +40,6 @@ request(layersRequestOptions, function (error, response, body) {
     }
 
     var mapwizeLayersByName = _.keyBy(body, 'name');
-
-    console.log(body);
-    console.log(mapwizeLayersByName);
 
     var cmxConfig = JSON.parse(fs.readFileSync(program.cmxConfig, 'utf8'));
 
