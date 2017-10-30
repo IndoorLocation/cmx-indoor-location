@@ -11,8 +11,9 @@ program
     .description('Configure CMX Socket IndoorLocation Emitter using Mapwize data')
     .option('-c, --cmxConfig [config]', 'Path to CMX config file (output of maps API)')
     .option('-k, --mapwizeApiKey [key]', 'Mapwize api key')
-    .option('-v, --mapwizeVenueId [venueId]', 'venueId')
-    .option('-o, --output [output]', 'output file')
+    .option('-v, --mapwizeVenueId [venueId]', 'Mapwize venueId')
+    .option('-o, --output [output]', 'Output file')
+    .option('-p, --pretty', 'Format the JSON output to be pretty and readable')
     .parse(process.argv);
 
 var nConfiguredFloors = 0;
@@ -85,7 +86,13 @@ request(layersRequestOptions, function (error, response, body) {
     });
 
     if (program.output) {
-        fs.writeFileSync(program.output, JSON.stringify(floors, null, 3), 'utf8');
+        var floorsString;
+        if (program.pretty) {
+            floorsString = JSON.stringify(floors, null, 3);
+        } else {
+            floorsString = JSON.stringify(floors);
+        }
+        fs.writeFileSync(program.output, floorsString, 'utf8');
     } else {
         console.log('No output file defined.');
     }
