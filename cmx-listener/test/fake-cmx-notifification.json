@@ -1,0 +1,39 @@
+{
+    "notifications" : [{
+        "notificationType": "locationupdate",
+        "subscriptionName": "MapwizeTest",
+        "eventId": 56556490,
+        "locationMapHierarchy": "CiscoCampus>Building 9>IDEAS!",
+        "locationCoordinate": {
+            "x": 19.5,
+            "y": 74.1,
+            "z": 0,
+            "unit": "FEET"
+        },
+        "geoCoordinate": {
+            "latitude": -999,
+            "longitude": -999,
+            "unit": "DEGREES"
+        },
+        "confidenceFactor": 152,
+        "apMacAddress": "00:2b:01:00:0a:00",
+        "associated": true,
+        "username": "",
+        "ipAddress": ["10.10.20.227"],
+        "ssid": "test",
+        "band": "IEEE_802_11_B",
+        "floorId": 723413320329068700,
+        "floorRefId": "723413320329068650",
+        "entity": "WIRELESS_CLIENTS",
+        "deviceId": "00:00:2a:01:00:44",
+        "lastSeen": "2017-10-31T08:56:52.764+00:00",
+        "rawLocation": {
+            "rawX": -999,
+            "rawY": -999,
+            "unit": "FEET"
+        },
+        "tagVendorData": null,
+        "manufacturer": "Trw",
+        "timestamp": 1509440212764
+    }]
+}
