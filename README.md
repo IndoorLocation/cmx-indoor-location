@@ -14,4 +14,4 @@ Here are the steps to follow:
 - Add all the CMX images as layers in your Mapwize venue. The images should perfectly overlay the Mapwize map for high accuracy. Name each layer in Mapwize with the same name given to the corresponding floor in CMX.
 - Call the configurator providing the path to the CMX config file, your Mapwize API key, the Mapwize venueId and where to store the output. Please ensure that your Mapwize API Key has read access to your venue.
 
-`./configureFromMapwize.js -k [YOUR MAPWIZE API KEY] -v [MAPWIZE VENUE ID] -c [PATH TO CMX CONFIG FILE] -o [PATH TO OUTPUT]`
+`./configurator/configureFromMapwize.js -k [YOUR MAPWIZE API KEY] -v [MAPWIZE VENUE ID] -c [PATH TO CMX CONFIG FILE] -o [PATH TO OUTPUT]`
