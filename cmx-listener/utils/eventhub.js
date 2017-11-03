@@ -3,13 +3,13 @@ var utils = require('../utils');
 
 var utf8 = require('utf8');
 var crypto = require('crypto');
-var Agent = require('agentkeepalive');
-var request = require('request');
+var HttpsAgent = require('agentkeepalive').HttpsAgent;
+var https = require('https');
 
-var keepaliveAgent = new Agent({
+var keepaliveAgent = new HttpsAgent({
     maxSockets: 160,
     maxFreeSockets: 10,
-    timeout: 60000,
+    timeout: 6000,
     freeSocketKeepAliveTimeout: 30000, // free socket keepalive for 30 seconds
 });
 
@@ -38,26 +38,33 @@ if (config.azureEventHub.enabled.toString() === 'true') {
 function insertCMXNotification(cmxNotification) {
     if (eventHubAuth) {
         var content = JSON.stringify(cmxNotification);
+        var contentLength = content.length;
 
-        request.post({
-            'https-agent': keepaliveAgent,
-            'headers': {
-                'Content-Length': content.length,
+        var options = {
+            host: `${config.azureEventHub.serviceBusUri}`,
+            path: `/${config.azureEventHub.eventHubPath}/messages`,
+            port: 443,
+            method: 'POST',
+            headers: {
+                'Content-Length': contentLength,
                 'Content-Type': 'application/json;charset=utf-8',
                 'Authorization': eventHubAuth,
                 'Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-                'Connection': 'Keep-Alive'
+                'Access-Control-Allow-Credentials': true
             },
-            uri: `https://${config.azureEventHub.serviceBusUri}/${config.azureEventHub.eventHubPath}/messages`,
-            method: 'POST',
-            body: content
-        },
-        function(err, resp, body) {
-            if(err) {
-                console.log(err);
-            }
+            agent: keepaliveAgent
+        };
+
+        var request = https.request(options, function (res) {
+            res.on('data', function() {});
         });
+
+        request.on('error', function (err) {
+            console.error(err);
+        });
+
+        request.write(content);
+        request.end();
     }
 };
 exports.insertCMXNotification = insertCMXNotification;
