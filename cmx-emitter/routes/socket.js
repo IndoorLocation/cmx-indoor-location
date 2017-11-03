@@ -23,6 +23,13 @@ module.exports = function (socket) {
         subscriber.psubscribe(`__keyspace*:${socket.userId}`);
     }
 
+    // We sent the last known user position if it exists
+    redis.getObject(`${socket.userId}`, function (err, indoorLocation) {
+        if (!err && indoorLocation) {
+            utils.sendIndoorLocationTo(indoorLocation, socket.userId);
+        }
+    });
+
     socket.on('disconnect', function () {
         subscriber.punsubscribe(`__keyspace*:${socket.userId}`);
     });
