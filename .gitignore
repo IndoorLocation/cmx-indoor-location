@@ -93,3 +93,6 @@ typings/
 /credentials.txt
 /configurator/*.json
 /cmx-listener/*.json
+
+#WebStorm
+.idea
