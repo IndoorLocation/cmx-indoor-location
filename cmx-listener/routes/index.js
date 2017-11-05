@@ -23,7 +23,7 @@ exports.default = function (req, res) {
  */
 exports.processCMXNotifications = function (req, res) {
     // Route key parameter used for authentication
-    if (req.query.k === config.key) {
+    if (!config.key || req.query.k === config.key) {
         // We use the setImmediate method for sending directly a 200 HTTP code to the CMX server
         // (no need to wait the end of the processing)
         //async.setImmediate(function (data) {
