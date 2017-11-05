@@ -28,6 +28,6 @@ if (config.azureEventHub.enabled.toString() === 'true') {
     }
 }
 
-mapwize.parseLayers();
+mapwize.parseFloors();
 
 require('./config/express')();

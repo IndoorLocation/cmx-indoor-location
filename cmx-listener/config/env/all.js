@@ -3,7 +3,7 @@
 module.exports = {
     port: process.env.PORT || 3004,
     key: process.env.KEY,
-    floorsConfiguration: process.env.FLOORS_CONFIGURATION ? JSON.parse(process.env.FLOORS_CONFIGURATION) : undefined,
+    floorsConfiguration: process.env.FLOORS_CONFIGURATION ? JSON.parse(process.env.FLOORS_CONFIGURATION) : [{"hierarchyName":"CiscoCampus>Building 9>IDEAS!","dimension":{"length":74.1,"width":39,"height":15,"offsetX":0,"offsetY":0,"unit":"FEET"},"floor":1,"corners":[{"lng":3.0197530027645363,"lat":50.54409548336825},{"lng":3.0198095304884385,"lat":50.54405333279014},{"lng":3.0196268856525426,"lat":50.54402718002255},{"lng":3.019683413376444,"lat":50.54398502938338}]}],
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || '6379',
