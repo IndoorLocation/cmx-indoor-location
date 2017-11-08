@@ -32,6 +32,7 @@ module.exports = function (socket) {
 
     socket.on('disconnect', function () {
         subscriber.punsubscribe(`__keyspace*:${socket.userId}`);
+        subscriber.quit();
     });
 
     // Message corresponds to the event, we can thus easily match the name
