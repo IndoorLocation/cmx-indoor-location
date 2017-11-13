@@ -51,7 +51,7 @@ redis-cli config set notify-keyspace-events K$
     *   Directly in the `config/all.js` file
     *   Via environment variables
         *   PORT: port used by the server
-        *   KEY: key used to authenticate the POST query (__required__)
+        *   KEY: key used to authenticate the POST query
         *   FLOORS_CONFIGURATION: serialized CMX JSON configuration (__required__)
         *   SESSIONS_REDIS_HOST: redis host (__required__)
         *   SESSIONS_REDIS_PORT: redis port
