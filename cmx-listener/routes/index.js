@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var async = require('async');
+var net = require('net');
 
 var config = require('../config/config');
 var mapwize = require('../utils/mapwize');
@@ -32,10 +33,13 @@ exports.processCMXNotifications = function (req, res) {
                 var indoorLocation = mapwize.getIndoorLocation(notification);
                 if (indoorLocation) {
                     _.forEach(notification.ipAddress, function (ip) {
-                        redis.setObject(ip, indoorLocation, config.redis.cmxNotificationTTL);
-                        notification.indoorLocation = indoorLocation;
-                        eventhub.insertCMXNotification(notification);
-                        mongoDB.insertCMXNotification(notification);
+                        // Check is the IP stored in the notification is correct (IPv4 or IPv6)
+                        if (net.isIP(ip) === 4 || net.isIP(ip) === 6) {
+                            redis.setObject(ip, indoorLocation, config.redis.cmxNotificationTTL);
+                            notification.indoorLocation = indoorLocation;
+                            eventhub.insertCMXNotification(notification);
+                            mongoDB.insertCMXNotification(notification);
+                        }
                     });
                 }
             });

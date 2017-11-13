@@ -17,6 +17,7 @@ module.exports = function (socket) {
 
     if (!socket.userId) {
         socket.emit('error', new Error('Unknown user'));
+        subscriber.quit();
         socket.disconnect(true);
     }
     else {
