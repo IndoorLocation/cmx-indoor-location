@@ -31,17 +31,16 @@ exports.processCMXNotifications = function (req, res) {
             //_.forEach(data.notifications, function (notification) {
             _.forEach(req.body.notifications, function (notification) {
                 var indoorLocation = mapwize.getIndoorLocation(notification);
-                if (indoorLocation) {
-                    _.forEach(notification.ipAddress, function (ip) {
-                        // Check is the IP stored in the notification is correct (IPv4 or IPv6)
-                        if (net.isIP(ip) === 4 || net.isIP(ip) === 6) {
-                            redis.setObject(ip, indoorLocation, config.redis.cmxNotificationTTL);
-                            notification.indoorLocation = indoorLocation;
-                            eventhub.insertCMXNotification(notification);
-                            mongoDB.insertCMXNotification(notification);
-                        }
-                    });
-                }
+                notification.indoorLocation = indoorLocation;
+                eventhub.insertCMXNotification(notification);
+                mongoDB.insertCMXNotification(notification);
+
+                _.forEach(notification.ipAddress, function (ip) {
+                    // Check is the IP stored in the notification is correct for redis (IPv4 or IPv6)
+                    if (!_.isEmpty(indoorLocation) && (net.isIP(ip) === 4 || net.isIP(ip) === 6)) {
+                        redis.setObject(ip, indoorLocation, config.redis.cmxNotificationTTL);
+                    }
+                });
             });
         //}, req.body);
 

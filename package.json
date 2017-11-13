@@ -2,6 +2,10 @@
   "name": "cmx-socket-indoor-location-emitter",
   "version": "1.0.0",
   "description": "Node.js server to provide indoorLocation from Cisco CMX",
+  "engines": {
+    "npm": "5.4.2",
+    "node": "6.11.1"
+  },
   "scripts": {
     "start-listener": "node cmx-listener/app.js",
     "start-emitter": "node cmx-emitter/app.js"
