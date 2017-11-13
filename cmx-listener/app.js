@@ -4,9 +4,6 @@ var config = require('./config/config');
 var mapwize = require('./utils/mapwize');
 
 // Check required environment variables
-if (!config.key) {
-    throw 'Missing required parameter: KEY';
-}
 if (!config.floorsConfiguration) {
     throw 'Missing required parameter: FLOORS_CONFIGURATION';
 }
@@ -31,6 +28,6 @@ if (config.azureEventHub.enabled.toString() === 'true') {
     }
 }
 
-mapwize.parseLayers();
+mapwize.parseFloors();
 
 require('./config/express')();

@@ -52,13 +52,12 @@ request(layersRequestOptions, function (error, response, body) {
 
             _.forEach(cmxBuilding.floorList, function(cmxFloor){
 
-                var mapwizeLayer = mapwizeLayersByName[cmxFloor.name];
+                var mapwizeLayer = mapwizeLayersByName[cmxFloor.hierarchyName];
 
                 if (mapwizeLayer) {
 
                     var floor = {
-                        floorId: cmxFloor.aesUid,
-                        name: cmxFloor.name,
+                        hierarchyName: cmxFloor.hierarchyName,
                         dimension: cmxFloor.dimension,
                         floor: mapwizeLayer.floor,
                         corners: mapwizeLayer.importJob.corners
@@ -70,7 +69,7 @@ request(layersRequestOptions, function (error, response, body) {
 
                 } else {
 
-                    console.log('No layer found on Mapwize for ' + cmxFloor.name);
+                    console.log('No layer found on Mapwize for ' + cmxFloor.hierarchyName);
                     nNotConfiguredFloors = nNotConfiguredFloors + 1;
 
                 }
