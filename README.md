@@ -50,17 +50,17 @@ redis-cli config set notify-keyspace-events K$
 *   We first need to correctly set the configuration parameters
     *   Directly in the `config/all.js` file
     *   Via environment variables
-        *   PORT: port used by the server
+        *   PORT: port used by the server (_default: 3004_)
         *   KEY: key used to authenticate the POST query
         *   FLOORS_CONFIGURATION: serialized CMX JSON configuration (__required__)
-        *   SESSIONS_REDIS_HOST: redis host (__required__)
-        *   SESSIONS_REDIS_PORT: redis port
-        *   SESSIONS_REDIS_AUTH: redis password (if set)
-        *   REDIS_CMX_NOTIF_TTL: redis key TTL
-        *   MONGODB_ENABLED: enable notifications logging into MongoDB
-        *   MONGODB_URL: MongoDB URL
-        *   MONGODB_COLLECTION: MongoDB collection to use
-        *   AZURE_EVENT_HUB_ENABLED: enable notifications logging into an Azure EventHub
+        *   REDIS_HOST: redis host (__required__) (_default: localhost_)
+        *   REDIS_PORT: redis port (_default: 6379_)
+        *   REDIS_AUTH: redis password (if set)
+        *   REDIS_CMX_NOTIF_TTL: redis key TTL (_default: 3600_)
+        *   MONGODB_ENABLED: enable notifications logging into MongoDB (_default: false_)
+        *   MONGODB_URL: MongoDB URL (_default: localhost_)
+        *   MONGODB_COLLECTION: MongoDB collection to use (_default: logs_)
+        *   AZURE_EVENT_HUB_ENABLED: enable notifications logging into an Azure EventHub (_default: false_)
         *   AZURE_EVENT_HUB_SERVICE_BUS_URI: AZ EventHub URI (e.g. `myservice.servicebus.windows.net`)
         *   AZURE_EVENT_HUB_PATH: AZ EventHub path (e.g. `myeventhub`)
         *   AZURE_EVENT_HUB_SA_NAME: AZ EventHub SharedAccessKeyName
@@ -110,9 +110,9 @@ These objects will be sent to the providers via a socket channel.
 *   We first need to correctly set the configuration parameters
     *   Directly in the `config/all.js` file
     *   Via environment variables
-        *   PORT: port used by the server
-        *   SESSIONS_REDIS_HOST: redis host (__required__)
-        *   SESSIONS_REDIS_PORT: redis port
+        *   PORT: port used by the server (_default: 3003_)
+        *   SESSIONS_REDIS_HOST: redis host (__required__) (_default: localhost_)
+        *   SESSIONS_REDIS_PORT: redis port (_default: 6379_)
         *   SESSIONS_REDIS_AUTH: redis password (if set)
 *   Start the server
     ```
