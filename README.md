@@ -53,6 +53,7 @@ redis-cli config set notify-keyspace-events K$
         *   PORT: port used by the server (_default: 3004_)
         *   KEY: key used to authenticate the POST query
         *   FLOORS_CONFIGURATION: serialized CMX JSON configuration (__required__)
+        *   MAC_ADDRESS_ENABLED: use the MAC address in addition to the IP address as a key in Redis (_default: false_)
         *   REDIS_HOST: redis host (__required__) (_default: localhost_)
         *   REDIS_PORT: redis port (_default: 6379_)
         *   REDIS_AUTH: redis password (if set)

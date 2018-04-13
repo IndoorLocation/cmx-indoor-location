@@ -9,6 +9,7 @@ var mapwize = require('../utils/mapwize');
 var redis = require('../utils/redis');
 var mongoDB = require('../utils/mongodb');
 var eventhub = require('../utils/eventhub');
+var utils = require('../utils');
 
 /**
  * Default route
@@ -29,6 +30,8 @@ exports.processCMXNotifications = function (req, res) {
         // (no need to wait the end of the processing)
         //async.setImmediate(function (data) {
             //_.forEach(data.notifications, function (notification) {
+            utils.log('' + req.body.notifications.length + ' notifications received from CMX');
+            
             _.forEach(req.body.notifications, function (notification) {
                 var indoorLocation = mapwize.getIndoorLocation(notification);
                 notification.indoorLocation = indoorLocation;
@@ -41,6 +44,10 @@ exports.processCMXNotifications = function (req, res) {
                         redis.setObject(ip, indoorLocation, config.redis.cmxNotificationTTL);
                     }
                 });
+
+                if (config.macAddressEnabled.toString() === 'true' && notification.apMacAddress) {
+                    redis.setObject(notification.apMacAddress, indoorLocation, config.redis.cmxNotificationTTL);
+                }
             });
         //}, req.body);
 
