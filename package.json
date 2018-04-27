@@ -22,16 +22,16 @@
   "homepage": "https://github.com/IndoorLocation/cmx-socket-indoor-location-emitter#readme",
   "dependencies": {
     "@mapbox/sphericalmercator": "1.0.5",
-    "agentkeepalive": "3.3.0",
-    "async": "2.5.0",
+    "agentkeepalive": "3.4.1",
+    "async": "2.6.0",
     "body-parser": "1.18.2",
-    "commander": "2.11.0",
-    "express": "4.16.2",
-    "ioredis": "3.1.4",
-    "lodash": "4.17.4",
-    "mongodb": "2.2.33",
-    "request": "2.83.0",
+    "commander": "2.15.1",
+    "express": "4.16.3",
+    "ioredis": "3.2.2",
+    "lodash": "4.17.10",
+    "mongodb": "3.0.7",
+    "request": "2.85.0",
     "socket.io": "2.0.3",
-    "utf8": "2.1.2"
+    "utf8": "3.0.0"
   }
 }
