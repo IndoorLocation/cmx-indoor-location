@@ -18,7 +18,6 @@ program
 
 var nConfiguredFloors = 0;
 var nNotConfiguredFloors = 0;
-var nAccessPoints = 0;
 
 if (!program.cmxConfig || !program.mapwizeApiKey || !program.mapwizeVenueId || !program.output) {
     console.log('The options --cmxConfig, --mapwizeApiKey, --mapwizeVenueId and --output are required.');
@@ -43,45 +42,38 @@ request(layersRequestOptions, function (error, response, body) {
     var mapwizeLayersByName = _.keyBy(body, 'name');
 
     var cmxConfig = JSON.parse(fs.readFileSync(program.cmxConfig, 'utf8'));
+    var campuses = _.filter(cmxConfig.map, { level: 'CAMPUS' });
 
     var floors = [];
 
-    _.forEach(cmxConfig.campuses, function(cmxCampus){
+    _.forEach(campuses, function (cmxCampus) {
+        var cmxBuildings = _.filter(cmxCampus.relationshipData.children, { 'level': 'BUILDING' });
 
-        _.forEach(cmxCampus.buildingList, function(cmxBuilding){
+        _.forEach(cmxBuildings, function (cmxBuilding) {
+            var cmxFloors = _.filter(cmxBuilding.relationshipData.children, { 'level': 'FLOOR' });
 
-            _.forEach(cmxBuilding.floorList, function(cmxFloor){
-
-                var mapwizeLayer = mapwizeLayersByName[cmxFloor.hierarchyName];
+            _.forEach(cmxFloors, function (cmxFloor) {
+                var hierarchyName = cmxCampus.name + '->' + cmxBuilding.name + '->' + cmxFloor.name;
+                var mapwizeLayer = mapwizeLayersByName[hierarchyName];
+                var dimension = _.pick(cmxFloor.details, ['length', 'width', 'height', 'offsetX', 'offsetY', 'FEET']);
 
                 if (mapwizeLayer) {
-
                     var floor = {
-                        hierarchyName: cmxFloor.hierarchyName,
-                        dimension: cmxFloor.dimension,
+                        hierarchyName: hierarchyName,
+                        dimension: dimension,
                         floor: mapwizeLayer.floor,
                         corners: mapwizeLayer.importJob.corners
                     };
 
                     floors.push(floor);
-
                     nConfiguredFloors = nConfiguredFloors + 1;
-
-                } else {
-
-                    console.log('No layer found on Mapwize for ' + cmxFloor.hierarchyName);
+                }
+                else {
+                    console.log('No layer found on Mapwize for ' + hierarchyName);
                     nNotConfiguredFloors = nNotConfiguredFloors + 1;
-
                 }
-
-                if (cmxFloor.accessPoints) {
-                    nAccessPoints = nAccessPoints + cmxFloor.accessPoints.length;
-                }
-
             });
-
         });
-
     });
 
     if (program.output) {
@@ -100,7 +92,4 @@ request(layersRequestOptions, function (error, response, body) {
     console.log('Statistics');
     console.log('nConfiguredFloors ' + nConfiguredFloors);
     console.log('nNotConfiguredFloors ' + nNotConfiguredFloors);
-    console.log('nAccessPoints ' + nAccessPoints);
-
 });
-
