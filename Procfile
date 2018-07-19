@@ -1,1 +1,1 @@
-web: node cmx-emitter/app.js
+web: node cmx-listener/app.js
