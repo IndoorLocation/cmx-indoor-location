@@ -33,6 +33,8 @@ exports.processCMXNotifications = function (req, res) {
             utils.log('' + req.body.notifications.length + ' notifications received from CMX');
             
             _.forEach(req.body.notifications, function (notification) {
+                utils.log('Device detected. MAC: ' + notification.deviceId + ', IPs: ' + notification.ipAddress.length === 0 ? 'Unknown' : _.join(notification.ipAddress, ', ') + '.');
+
                 var indoorLocation = mapwize.getIndoorLocation(notification);
                 notification.indoorLocation = indoorLocation;
                 eventhub.insertCMXNotification(notification);
