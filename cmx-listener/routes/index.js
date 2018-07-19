@@ -45,8 +45,8 @@ exports.processCMXNotifications = function (req, res) {
                     }
                 });
 
-                if (config.macAddressEnabled.toString() === 'true' && notification.apMacAddress) {
-                    redis.setObject(notification.apMacAddress, indoorLocation, config.redis.cmxNotificationTTL);
+                if (config.macAddressEnabled.toString() === 'true' && notification.deviceId) {
+                    redis.setObject(notification.deviceId, indoorLocation, config.redis.cmxNotificationTTL);
                 }
             });
         //}, req.body);
