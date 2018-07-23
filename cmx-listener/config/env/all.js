@@ -13,8 +13,9 @@ module.exports = {
     },
     mongodb: {
         enabled: process.env.MONGODB_ENABLED || false,
-        url: process.env.MONGODB_URL || 'mongodb://localhost:27017/mapwize-cmx-logger',
-        collection: process.env.MONGODB_COLLECTION || 'logs',
+        url: process.env.MONGODB_URL || 'mongodb://localhost:27017',
+        database: process.env.MONGODB_DATABASE || 'mapwize-cmx-logger',
+        collection: process.env.MONGODB_COLLECTION || 'logs'
     },
     azureEventHub: {
         enabled: process.env.AZURE_EVENT_HUB_ENABLED || false,
